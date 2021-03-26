@@ -1,14 +1,38 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(WeatherApp());
+const white = Colors.white;
+const red = Colors.red;
 
-class WeatherApp extends StatelessWidget {
+void main() => runApp(MyApp());
+
+Widget _subtitle5({String text = ''}) {
+  return Text(
+    text,
+    style: TextStyle(
+      fontSize: 22,
+      color: white,
+    ),
+  );
+}
+
+Widget _subtitle6({String text = ''}) {
+  return Text(
+    text,
+    style: TextStyle(
+      fontSize: 32,
+      color: white,
+    ),
+  );
+}
+
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: _createAppBar(),
         body: _buildBody(),
+        backgroundColor: red,
       ),
     );
   }
@@ -17,125 +41,109 @@ class WeatherApp extends StatelessWidget {
 Widget _createAppBar() {
   return AppBar(
     title: Text(
-      'Weather',
-      style: TextStyle(color: Colors.black87),
+      'Weather Forecast',
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        color: white,
+      ),
     ),
     centerTitle: true,
-    backgroundColor: Colors.white,
-    // leading -  элементы в левой части AppBar
-    leading: IconButton(
-      icon: Icon(Icons.menu),
-      onPressed: () {},
-    ),
-    // actions - иконки с права AppBar
-    actions: [
-      IconButton(
-        icon: Icon(Icons.settings),
-        onPressed: () {},
-      )
-    ],
+    backgroundColor: red,
     iconTheme: IconThemeData(
-      color: Colors.black54,
+      color: white,
     ),
-    brightness: Brightness.light,
   );
 }
 
 Widget _buildBody() {
-  // ScrollView
   return SingleChildScrollView(
+    child: SafeArea(
+      child: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _textField(),
+            Divider(),
+            _cityDetail(),
+            Divider(),
+            _temperatureDetail(),
+            Divider(),
+            _extraWeatherDetail(),
+            Divider(),
+            Divider(),
+            Divider(),
+            _subtitle5(text: '7-DAY WEATHER FORECAST'),
+            Divider(),
+            SizedBox(
+              height: 130.0,
+              child: _listView(),
+            )
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+Widget _textField() {
+  return TextField(
+    style: TextStyle(
+      height: 0.3,
+      color: white,
+    ),
+    decoration: InputDecoration(
+      labelText: 'Enter City Name',
+      icon: Icon(
+        Icons.search,
+        color: white,
+      ),
+      labelStyle: TextStyle(color: white),
+    ),
+  );
+}
+
+Widget _cityDetail() {
+  return Padding(
+    padding: EdgeInsets.only(right: 16, left: 16),
     child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _headerImage(),
-        SafeArea(
-          child: Padding(
-            padding: EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _weatherDescription(),
-                Divider(),
-                _temperature(),
-                Divider(),
-                _temperatureForecast(),
-                Divider(),
-                _footerRatings()
-              ],
-            ),
-          ),
+        _subtitle6(text: 'Murmansk Oblast, RU'),
+        Divider(),
+        _subtitle5(
+          text: 'Friday, Mar 20, 2020',
         ),
       ],
     ),
   );
 }
 
-Widget _headerImage() {
-  return Image.network(
-    'https://www.thetimes.co.uk/imageserver/image/%2Fmethode%2Fsundaytimes%2Fprodmigration%2Fweb%2Fbin%2F367e8f56-10e5-4d76-9416-947e2a05dfe3.jpg?crop=1500%2C1000%2C0%2C0&resize=1180',
-    fit: BoxFit.cover,
-  );
-}
-
-Widget _weatherDescription() {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-      Text(
-        'Tuesday - May 22',
-        style: TextStyle(
-          fontSize: 32.0,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      Divider(),
-      Text(
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque odio ligula, sagittis ut mi vel, tincidunt porttitor urna. Proin eu pretium diam. Curabitur gravida diam volutpat, fermentum nunc nec, accumsan odio.',
-        style: TextStyle(
-          color: Colors.black54,
-        ),
-      ),
-    ],
-  );
-}
-
-Widget _temperature() {
+Widget _temperatureDetail() {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
+    mainAxisSize: MainAxisSize.max,
     children: [
-      Column(
-        children: [
-          Icon(
-            Icons.wb_sunny,
-            color: Colors.yellow,
-          ),
-        ],
+      Icon(
+        Icons.wb_sunny,
+        size: 100,
+        color: white,
       ),
-      // SizedBox - реализует заполнение пустого пространства
       SizedBox(
-        width: 16.0,
+        width: 16,
       ),
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Text(
-                '15 Clear',
-                style: TextStyle(
-                  color: Colors.deepPurple,
-                ),
-              ),
-            ],
+          Text(
+            '14 F',
+            style: TextStyle(
+              fontSize: 50,
+              color: white,
+            ),
           ),
-          Row(
-            children: [
-              Text(
-                'Sverdlovskaya oblast , Nizhny Tagil',
-                style: TextStyle(
-                  color: Colors.grey,
-                ),
-              ),
-            ],
+          _subtitle5(
+            text: 'LIGHT SNOW',
           ),
         ],
       ),
@@ -143,70 +151,136 @@ Widget _temperature() {
   );
 }
 
-Widget _temperatureForecast() {
-  return Wrap(
-    spacing: 10.0,
-    children: List.generate(
-      8,
-      (int index) => Chip(
-        label: Text(
-          '${index + 20} C',
-          style: TextStyle(fontSize: 15.0),
-        ),
-        avatar: Icon(
-          Icons.wb_cloudy,
-          color: Colors.blue[300],
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(4.0),
-          side: BorderSide(color: Colors.grey),
-        ),
-        backgroundColor: Colors.grey[100],
-      ),
-    ),
-  );
-}
-
-Widget _footerRatings() {
-  var stars = Row(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Icon(
-        Icons.star,
-        color: Colors.yellow,
-        size: 15,
-      ),
-      Icon(
-        Icons.star,
-        color: Colors.yellow,
-        size: 15,
-      ),
-      Icon(
-        Icons.star,
-        color: Colors.yellow,
-        size: 15,
-      ),
-      Icon(
-        Icons.star,
-        color: Colors.black,
-        size: 15,
-      ),
-      Icon(
-        Icons.star,
-        color: Colors.black,
-        size: 15,
-      ),
-    ],
-  );
+Widget _extraWeatherDetail() {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: [
-      Text(
-        'Info with openweathermap.com',
-        style: TextStyle(fontSize: 15),
-      ),
-      Divider(),
-      stars,
+      _weatherDetail(icon: Icons.ac_unit, text: 'km/hr', percent: 5),
+      _weatherDetail(icon: Icons.ac_unit, text: '%', percent: 3),
+      _weatherDetail(icon: Icons.ac_unit, text: '%', percent: 20),
     ],
   );
+}
+
+Widget _weatherDetail({IconData icon, String text, int percent}) {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Icon(
+        icon,
+        color: white,
+        size: 50,
+      ),
+      SizedBox(
+        height: 10,
+      ),
+      _subtitle5(text: percent.toString()),
+      Text(
+        text,
+        style: TextStyle(color: white),
+      ),
+    ],
+  );
+}
+
+Widget _listView() {
+  final List<ListItem> items = List<ListItem>.generate(
+      7,
+      (index) => ListItem(
+            dayOfTheWeek: getDay(position: index),
+            icon: Icons.wb_sunny,
+            temp: index + 20,
+          ));
+
+  return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemExtent: 160,
+      itemCount: items.length,
+      itemBuilder: (context, index) {
+        final item = items[index];
+        return Container(
+          margin: EdgeInsets.all(8),
+          color: Colors.redAccent,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _subtitle5(text: item.dayOfTheWeek.name),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _subtitle6(text: '${item.temp} F'),
+                  Divider(),
+                  Icon(
+                    item.icon,
+                    color: white,
+                    size: 50,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      });
+}
+
+class ListItem {
+  final DayOfTheWeek dayOfTheWeek;
+  final int temp;
+  final IconData icon;
+
+  ListItem({this.dayOfTheWeek, this.temp, this.icon});
+}
+
+enum DayOfTheWeek {
+  Monday,
+  Tuesday,
+  Wednesday,
+  Thursday,
+  Friday,
+  Saturday,
+  Sunday
+}
+
+extension DayOfTheWeekExtension on DayOfTheWeek {
+  String get name {
+    switch (this) {
+      case DayOfTheWeek.Monday:
+        return 'MONDAY';
+      case DayOfTheWeek.Tuesday:
+        return 'TUESDAY';
+      case DayOfTheWeek.Wednesday:
+        return 'WEDNESDAY';
+      case DayOfTheWeek.Thursday:
+        return 'THURSDAY';
+      case DayOfTheWeek.Friday:
+        return 'FRIDAY';
+      case DayOfTheWeek.Saturday:
+        return 'SATURDAY';
+      case DayOfTheWeek.Sunday:
+        return 'SUNDAY';
+      default:
+        return null;
+    }
+  }
+}
+
+DayOfTheWeek getDay({int position}) {
+  switch (position) {
+    case 0:
+      return DayOfTheWeek.Monday;
+    case 1:
+      return DayOfTheWeek.Tuesday;
+    case 2:
+      return DayOfTheWeek.Wednesday;
+    case 3:
+      return DayOfTheWeek.Thursday;
+    case 4:
+      return DayOfTheWeek.Friday;
+    case 5:
+      return DayOfTheWeek.Saturday;
+    case 6:
+      return DayOfTheWeek.Sunday;
+    default:
+      return null;
+  }
 }
