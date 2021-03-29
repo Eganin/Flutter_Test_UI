@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 void less() {
   runApp(
-    MaterialApp(// Cupertino
+    MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title : Text('First App'),
