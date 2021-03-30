@@ -1,11 +1,9 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/learn/provider/example/providers/CountProvider.dart';
 import 'package:flutter_test_app/learn/provider/example/providers/EventProvider.dart';
 import 'package:flutter_test_app/learn/provider/example/providers/UserProvider.dart';
 import 'package:provider/provider.dart';
-
 import 'MyCountPage.dart';
 import 'MyEventPage.dart';
 import 'MyUserPage.dart';
