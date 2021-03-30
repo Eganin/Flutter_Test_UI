@@ -31,6 +31,7 @@ dependencies:
   json_serializable: ^3.2.5
   build_runner: ^1.8.0
   scoped_model: ^1.1.0
+  provider: ^5.0.0
 
 dev_dependencies:
   flutter_test:
@@ -51,6 +52,7 @@ flutter:
   assets:
     - assets/images/bg.jpg
     - assets/icons/icon.png
+    - assets/users.json
 
     # An image asset can refer to one or more resolution-specific "variants", see
     # https://flutter.dev/assets-and-images/#resolution-aware.
