@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -32,8 +31,8 @@ class _ReadAndWriteFileState extends State<ReadAndWriteFile> {
   void initState() {
     this._readTextFromLocalFile();
     this
-        ._getLocalPath
-        .then((file) => setState((() => this._localFilePath = file)));
+        ._gelLocalFile
+        .then((file) => setState((() => this._localFilePath = file.path)));
     super.initState();
   }
 
