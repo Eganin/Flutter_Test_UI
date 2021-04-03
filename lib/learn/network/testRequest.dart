@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/learn/network/offices.dart';
-import 'package:http/http.dart' as http;
 
 void init() => runApp(MyApp());
 

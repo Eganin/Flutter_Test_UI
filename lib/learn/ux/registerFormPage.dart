@@ -169,7 +169,6 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
                 );
               }).toList(),
               onChanged: (country) {
-                print(country);
                 setState(() {
                   _selectedCountry = country;
                 });

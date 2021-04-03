@@ -35,7 +35,7 @@ class _CounterAppState extends State<CounterApp> {
               Text('Tap "-" to decrement'),
               Container(
                 color: Colors.white70,
-                margin: const EdgeInsets.only(right:140,left :140),
+                margin: const EdgeInsets.only(right: 140, left: 140),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

@@ -23,8 +23,11 @@ class MyApp extends StatelessWidget {
             User user = settings.arguments;
             return MaterialPageRoute(
                 builder: (context) => SecondHome(
-                  user: user,
-                ));
+                      user: user,
+                    ));
+            break;
+
+          default:
             break;
         }
       },
